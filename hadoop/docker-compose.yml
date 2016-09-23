@@ -1,0 +1,16 @@
+version: '2'
+services:
+    nn:
+        build: hadoop
+        hostname: lake
+        command: hdfs namenode
+    dn:
+        build: hadoop
+        command: hdfs datanode
+    rm:
+        build: hadoop
+        hostname: yarn
+        command: yarn resourcemanager
+    nm:
+        build: hadoop
+        command: yarn nodemanager
