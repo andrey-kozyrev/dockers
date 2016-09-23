@@ -1,0 +1,32 @@
+version: '2'
+services:
+    csn-1:
+        build: cassandra
+        environment:
+          - CASSANDRA_CLUSTER_NAME=dev
+          - JVM_OPTS=-Xms2g -Xmx2g -Dcom.sun.management.jmxremote.authenticate=false
+          - LOCAL_JMX=no
+        mem_limit: 2048M
+        cpuset: "1"
+    csn-2:
+        build: cassandra
+        links:
+          - csn-1
+        environment:
+          - CASSANDRA_SEEDS=csn-1
+          - CASSANDRA_CLUSTER_NAME=dev
+          - JVM_OPTS=-Xms2g -Xmx2g -Dcom.sun.management.jmxremote.authenticate=false
+          - LOCAL_JMX=no
+        mem_limit: 2048M
+        cpuset: "2"
+    csn-3:
+        build: cassandra
+        links:
+          - csn-1
+        environment:
+          - CASSANDRA_SEEDS=csn-1
+          - CASSANDRA_CLUSTER_NAME=dev
+          - JVM_OPTS=-Xms2g -Xmx2g -Dcom.sun.management.jmxremote.authenticate=false
+          - LOCAL_JMX=no
+        mem_limit: 2048M
+        cpuset: "3"
