@@ -1,0 +1,39 @@
+version: '2'
+
+networks:
+    net:
+
+volumes:
+    inf:
+
+services:
+#    chr:
+#        image: library/chronograf
+#        ports:
+#          - "127.0.0.1:10000:10000"
+#        networks:
+#          - net
+    inf:
+        image: library/influxdb
+        ports:
+          - "127.0.0.1:8083:8083"
+          - "127.0.0.1:8086:8086"
+        environment:
+          - INFLUXDB_DATA_MAX_SERIES_PER_DATABASE=5000000
+          - INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION=3m
+          - INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION=24h
+          - INFLUXDB_COORDINATOR_MAX_CONCURRENT_QUERIES=12
+          - INFLUXDB_COORDINATOR_MAX_SELECT_SERIES=50000
+          - INFLUXDB_COORDINATOR_MAX_SELECT_POINT=500000
+          - INFLUXDB_COORDINATOR_QUERY_TIMEOUT=30s
+          - INFLUXDB_COORDINATOR_WRITE_TIMEOUT=60s
+        volumes:
+          - inf:/var/lib/influxdb
+        networks:
+          - net
+    grf:
+        image: grafana/grafana
+        ports: 
+          - "127.0.0.1:3000:3000"
+        networks:
+          - net
