@@ -1,0 +1,65 @@
+version: '2'
+
+networks:
+    net:
+
+services:
+    zkp:
+        image: jplock/zookeeper:3.4.8
+        ports:
+          - "127.0.0.1:2181:2181"
+        networks:
+          - net        
+    zkw:
+        image: goodguide/zk-web
+        links:
+          - zkp
+        environment:
+          - ZKWEB_DEFAULT_NODE=zkp
+        ports:
+          - "127.0.0.1:8888:8080"
+        networks:
+          - net
+    msm:
+        image: dockers/soa
+        ports:
+          - "127.0.0.1:5050:5050"
+        networks:
+          - net
+        hostname: msm
+        entrypoint: 
+          - /usr/local/bin/dumb-init
+          - /usr/sbin/mesos-master
+        environment:
+          - MESOS_CLUSTER=${USER}
+    mss:
+        image: dockers/soa
+        privileged: true
+        hostname: mss
+        entrypoint:
+          - /usr/local/bin/dumb-init
+          - /usr/sbin/mesos-slave
+        networks:
+          - net
+        ports:
+          - "127.0.0.1:5051:5051"
+          - "127.0.0.1:1338:1338"
+        volumes:
+          - /sys/fs/cgroup:/sys/fs/cgroup
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /tmp/mesos:/tmp/mesos
+        environment:
+          - MESOS_MASTER=msm:5050
+    aur:
+        image: dockers/soa
+        entrypoint:
+          - /usr/local/bin/dumb-init
+          - /usr/bin/aurora-scheduler-startup 
+        environment:
+          - MESOS_CLUSTER=${USER}
+          - MESOS_MASTER=msm:5050
+          - ZK_ENDPOINTS=zkp:2181
+        networks:
+          - net
+        ports:
+          - "127.0.0.1:8081:8081"

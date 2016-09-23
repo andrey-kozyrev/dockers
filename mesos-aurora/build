@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+mkdir -p /tmp/mesos
+docker build --build-arg DUMB_INIT_VERSION=1.0.2 --build-arg MESOS_VERSION=1.0.1 --build-arg AURORA_VERSION=0.15.0 -t dockers/soa .

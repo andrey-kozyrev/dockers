@@ -1,0 +1,13 @@
+#!/bin/bash
+wrapup() {
+  docker-compose stop msm mss aur zkw
+  sleep 3
+  docker-compose stop
+  docker-compose rm -f -v
+}
+trap wrapup INT
+rm -rf /tmp/mesos/*
+docker-compose up -d zkp
+sleep 3
+docker-compose up -d
+docker-compose logs -f
