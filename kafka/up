@@ -1,0 +1,10 @@
+#!/bin/bash
+docker-compose build
+docker-compose up -d zkp 
+sleep 1
+docker-compose up -d zkw
+sleep 5
+docker-compose up -d kfk
+sleep 1
+docker-compose up -d kfm
+docker-compose logs -f

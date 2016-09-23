@@ -1,0 +1,8 @@
+#!/bin/bash
+docker-compose stop kfm
+sleep 1
+docker-compose stop kfk
+sleep 5
+docker-compose stop zkw
+sleep 1
+docker-compose stop

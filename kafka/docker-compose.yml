@@ -1,0 +1,27 @@
+version: '2'
+services:
+    zkp:
+        image: jplock/zookeeper
+    zkw:
+        image: goodguide/zk-web
+        links:
+          - zkp
+        environment:
+          - ZKWEB_DEFAULT_NODE=zkp
+    kfk:
+        image: wurstmeister/kafka
+        links:
+          - zkp
+        environment:
+          - HOSTNAME_COMMAND=ip addr show | grep eth0$$ | grep -Eo "([0-9]{1,3}\.){3}[0-9]{1,3}"
+          - KAFKA_ADVERTISED_PORT=9092
+          - KAFKA_ZOOKEEPER_CONNECT=zkp:2181/kafka
+          - JMX_PORT=9010
+        restart: always
+    kfm:
+        image: sheepkiller/kafka-manager
+        links:
+          - zkp
+        environment:
+          - ZK_HOSTS=zkp:2181
+          - JMX_PORT=9010
