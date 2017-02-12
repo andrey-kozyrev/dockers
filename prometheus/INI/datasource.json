@@ -1,0 +1,8 @@
+{
+  "name":"pms",
+  "type":"prometheus",
+  "url":"http://pms:9090",
+  "access":"proxy",
+  "basicAuth":false,
+  "isDefault":true
+}

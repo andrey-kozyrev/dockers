@@ -16,9 +16,7 @@ services:
     networks:
       - net
   grf:
-    image: grafana/grafana
-    volumes:
-      - ./GRF/dashboards:/var/lib/grafana/dashboards
+    build: GRF
     ports:
       - "127.0.0.1:3000:3000"
     networks:
@@ -31,5 +29,11 @@ services:
       - ./PMS/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
       - "127.0.0.1:9090:9090"
+    networks:
+      - net
+  ini:
+    build: INI
+    depends_on:
+      - grf
     networks:
       - net
