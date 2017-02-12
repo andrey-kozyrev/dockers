@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 networks:
   net:
@@ -6,6 +6,7 @@ networks:
 services:
   cad:
     image: google/cadvisor
+    mem_limit: 64m
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -17,6 +18,7 @@ services:
       - net
   grf:
     build: GRF
+    mem_limit: 64m
     ports:
       - "127.0.0.1:3000:3000"
     networks:
@@ -25,6 +27,7 @@ services:
       - GF_DASHBOARDS_JSON_ENABLED=true
   pms:
     image: prom/prometheus
+    mem_limit: 128m
     volumes:
       - ./PMS/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
