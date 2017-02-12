@@ -17,10 +17,14 @@ services:
       - net
   grf:
     image: grafana/grafana
+    volumes:
+      - ./GRF/dashboards:/var/lib/grafana/dashboards
     ports:
       - "127.0.0.1:3000:3000"
     networks:
       - net
+    environment:
+      - GF_DASHBOARDS_JSON_ENABLED=true
   pms:
     image: prom/prometheus
     volumes:
