@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run --network=hadoop_default -ti hadoop_hhs beeline -u jdbc:hive2://hhs:10000 -n hive -p hive

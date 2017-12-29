@@ -1,18 +1,18 @@
 version: '2'
 services:
     hnn:
-        build: hadoop
+        build: .
         hostname: hnn
         command: hdfs namenode
     hdn:
-        build: hadoop
+        build: .
         command: hdfs datanode
     hrm:
-        build: hadoop
+        build: .
         hostname: hrm
         command: yarn resourcemanager
     hnm:
-        build: hadoop
+        build: .
         command: yarn nodemanager
     msq:
         image: percona/percona-server
@@ -22,13 +22,13 @@ services:
           - MYSQL_USER=hive
           - MYSQL_PASSWORD=hive
     hms:
-        build: hive
+        build: .
         hostname: hms
         command: hive --service metastore
         depends_on:
           - msq
     hhs:
-        build: hive
+        build: .
         hostname: hhs
         command: hive --service hiveserver2
         depends_on:
