@@ -1,0 +1,10 @@
+#!/bin/bash
+
+do_halt() {
+  docker-compose stop
+}
+
+trap do_halt INT
+docker-compose up --build -d
+#docker-compose scale hdn=3 hnm=3
+docker-compose logs -f
