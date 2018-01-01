@@ -27,6 +27,13 @@ services:
         command: hive --service metastore
         depends_on:
           - msq
+    hwc:
+        build: .
+        hostname: hwc
+        command: webhcat_server.sh foreground
+        depends_on:
+          - hrm
+          - hms
     hhs:
         build: .
         hostname: hhs

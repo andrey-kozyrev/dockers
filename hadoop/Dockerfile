@@ -1,5 +1,11 @@
 FROM java:8
 
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update \
+ && apt-get install -y apt-utils \
+ && apt-get install -y libmysql-java
+
 ENV HADOOP_VER 2.7.2
 ENV HIVE_VER 2.3.2
 
@@ -21,16 +27,16 @@ RUN cd /usr/lib \
  && wget -q https://archive.apache.org/dist/hive/hive-$HIVE_VER/apache-hive-$HIVE_VER-bin.tar.gz \
  && tar -xf apache-hive*.tar.gz \
  && rm *.tar.gz \
- && mv apache-hive-$HIVE_VER-bin hive
+ && mv apache-hive-$HIVE_VER-bin hive \
+ && rm /usr/lib/hive/lib/log4j-slf4j-impl-2.6.2.jar
 
 ENV HIVE_HOME /usr/lib/hive
 ENV HIVE_CONF_DIR $HIVE_HOME/conf
+ENV HCAT_HOME $HIVE_HOME/hcatalog
 
-RUN apt-get update \
- && apt-get install libmysql-java \
- && ln -s /usr/share/java/mysql-connector-java.jar $HIVE_HOME/lib/mysql-connector-java.jar
+RUN ln -s /usr/share/java/mysql-connector-java.jar $HIVE_HOME/lib/mysql-connector-java.jar
 
-ENV PATH $HIVE_HOME/bin:$HADOOP_HOME/bin:$PATH
+ENV PATH $HIVE_HOME/bin:$HCAT_HOME/bin:$HCAT_HOME/sbin:$HADOOP_HOME/bin:$PATH
 
 ADD hdfs-site.xml $HADOOP_CONF_DIR/
 ADD core-site.xml $HADOOP_CONF_DIR/
