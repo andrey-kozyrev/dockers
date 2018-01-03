@@ -1,2 +1,0 @@
-#!/bin/bash
-docker run --network=hadoop_default -ti hadoop_hhs hadoop fs $*

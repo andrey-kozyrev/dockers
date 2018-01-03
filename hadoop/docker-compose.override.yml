@@ -3,12 +3,40 @@ services:
     hnn:
         ports:
           - "127.0.0.1:50070:50070"
+        volumes:
+          - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
+          - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
+    hdn:
+        volumes:
+          - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
+          - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
     hrm:
         ports:
           - "127.0.0.1:8088:8088"
+        volumes:
+          - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
+          - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
+          - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
+    hnm:
+        volumes:
+          - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
+          - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
+          - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
+    hms:
+        volumes:
+          - ./HIVE/hive-site.xml:/usr/lib/hive/conf/hive-site.xml:ro
     hhs:
         ports:
           - "127.0.0.1:10002:10002"
-    hwc:
-        ports:
-          - "127.0.0.1:50111:50111"
+        volumes:
+          - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
+          - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
+          - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
+          - ./HIVE/hive-site.xml:/usr/lib/hive/conf/hive-site.xml:ro
+    hps:
+        volumes:
+          - ./PRESTO/node.properties:/usr/lib/presto/etc/node.properties:ro
+          - ./PRESTO/config.properties:/usr/lib/presto/etc/config.properties:ro
+          - ./PRESTO/log.properties:/usr/lib/presto/etc/log.properties:ro
+          - ./PRESTO/jvm.config:/usr/lib/presto/etc/jvm.config:ro
+          - ./PRESTO/hive.properties:/usr/lib/presto/etc/catalog/hive.properties:ro
