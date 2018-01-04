@@ -6,6 +6,8 @@ YARN_SITE=`pwd`/HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
 SPARK_ENV=`pwd`/SPARK/spark-env.sh:/usr/lib/spark/conf/spark-env.sh:ro
 SPARK_LOG4J=`pwd`/SPARK/log4j.properties:/usr/lib/spark/conf/log4j.properties:ro
 
+.PHONY: build up halt rm logs init bash hive spark presto
+
 build:
 	docker build --build-arg HADOOP_VER=2.7.2 --build-arg HIVE_VER=2.3.2 --build-arg PRESTO_VER=0.191 --build-arg PIG_VER=0.17.0 --build-arg SPARK_VER=2.2.1 --tag ak/hadoop .
 
@@ -27,11 +29,11 @@ init:
 bash:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} ${IMG} bash
 
-bee:
+hive:
 	docker run -ti --network=${NETWORK} ${IMG} beeline -u jdbc:hive2://hive:10000 -n hive -p hive
 
-sparks:
+spark:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${SPARK_ENV} -p "127.0.0.1:4040:4040" ${IMG} spark-shell --master yarn --deploy-mode client
 
-prestos:
+presto:
 	docker run -ti --network=${NETWORK} ${IMG} presto-cli.jar --server presto:8080 --catalog hive --schema default
