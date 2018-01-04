@@ -5,7 +5,7 @@ HDFS_SITE=`pwd`/HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
 YARN_SITE=`pwd`/HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
 SPARK_ENV=`pwd`/SPARK/spark-env.sh:/usr/lib/spark/conf/spark-env.sh:ro
 SPARK_LOG4J=`pwd`/SPARK/log4j.properties:/usr/lib/spark/conf/log4j.properties:ro
-DATA=`pwd`/DATA:/var/dat/data:ro
+DATA=`pwd`/data:/var/dat/data:rw
 WORKDIR=/var/dat/data
 
 .PHONY: build up halt rm logs init bash pig hive spark presto
@@ -35,7 +35,7 @@ pig:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${DATA} -w ${WORKDIR} ${IMG} pig -x mapreduce
 
 hive:
-	docker run -ti --network=${NETWORK} -v ${DATA} -w ${WORKDIR} ${IMG} beeline -u jdbc:hive2://hive:10000 -n hive -p hive
+	docker run -ti --network=${NETWORK} -v ${DATA} -w ${WORKDIR} ${IMG} beeline -u jdbc:hive2://hive:10000 -n hive -p hive --outputformat=csv2 --color=true --showHeaders=true
 
 spark:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${SPARK_ENV} -v ${DATA} -w ${WORKDIR} -p "127.0.0.1:4040:4040" ${IMG} spark-shell --master yarn --deploy-mode client
