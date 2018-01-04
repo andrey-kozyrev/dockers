@@ -21,17 +21,17 @@ rm:
 logs:
 	docker-compose logs -f
 
-msq:
-	docker-compose up msq
-
-hms:
-	docker-compose up hms
+init:
+	docker-compose up mysql
 
 bash:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} ${IMG} bash
 
 bee:
-	docker run -ti --network=${NETWORK} ${IMG} beeline -u jdbc:hive2://hhs:10000 -n hive -p hive
+	docker run -ti --network=${NETWORK} ${IMG} beeline -u jdbc:hive2://hive:10000 -n hive -p hive
 
 sparks:
 	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${SPARK_ENV} -p "127.0.0.1:4040:4040" ${IMG} spark-shell --master yarn --deploy-mode client
+
+prestos:
+	docker run -ti --network=${NETWORK} ${IMG} presto-cli.jar --server presto:8080 --catalog hive --schema default

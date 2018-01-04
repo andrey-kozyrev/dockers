@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>hrm</value>
+    <value>yarn</value>
   </property>
   <property>
       <name>yarn.nodemanager.pmem-check-enabled</name>

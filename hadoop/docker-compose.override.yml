@@ -1,31 +1,31 @@
 version: '2'
 services:
-    hnn:
+    namenode:
         ports:
           - "127.0.0.1:50070:50070"
         volumes:
           - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
-    hdn:
+    datanode:
         volumes:
           - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
-    hrm:
+    yarn:
         ports:
           - "127.0.0.1:8088:8088"
         volumes:
           - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
           - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
-    hnm:
+    worker:
         volumes:
           - ./HADOOP/hdfs-site.xml:/usr/lib/hadoop/etc/hadoop/hdfs-site.xml:ro
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
           - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
-    hms:
+    metastore:
         volumes:
           - ./HIVE/hive-site.xml:/usr/lib/hive/conf/hive-site.xml:ro
-    hhs:
+    hive:
         ports:
           - "127.0.0.1:10002:10002"
         volumes:
@@ -33,7 +33,9 @@ services:
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
           - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
           - ./HIVE/hive-site.xml:/usr/lib/hive/conf/hive-site.xml:ro
-    hps:
+    presto:
+        ports:
+          - "127.0.0.1:8080:8080"
         volumes:
           - ./PRESTO/node.properties:/usr/lib/presto/etc/node.properties:ro
           - ./PRESTO/config.properties:/usr/lib/presto/etc/config.properties:ro

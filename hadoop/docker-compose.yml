@@ -1,42 +1,45 @@
 version: '2'
 services:
-    hnn:
+    namenode:
         image: ak/hadoop
-        hostname: hnn
+        hostname: namenode
         command: /namenode.sh
         volumes:
           - ./HADOOP/namenode.sh:/namenode.sh
-    hdn:
+    datanode:
         image: ak/hadoop
         command: hdfs datanode
-    hrm:
+    yarn:
         image: ak/hadoop
-        hostname: hrm
+        hostname: yarn
         command: yarn resourcemanager
-    hnm:
+    worker:
         image: ak/hadoop
         command: yarn nodemanager
-    msq:
+    mysql:
         image: percona/percona-server
+        hostname: mysql
         environment:
           - MYSQL_ROOT_PASSWORD=root
           - MYSQL_DATABASE=metastore
           - MYSQL_USER=hive
           - MYSQL_PASSWORD=hive
-    hms:
+    metastore:
         image: ak/hadoop
-        hostname: hms
+        hostname: metastore
         command: hive --service metastore
         depends_on:
-          - msq
-    hhs:
+          - mysql
+    hive:
         image: ak/hadoop
-        hostname: hhs
+        hostname: hive
         command: hive --service hiveserver2
         depends_on:
-          - hms
-          - hrm
-    hps:
+          - metastore
+          - yarn
+    presto:
         image: ak/hadoop
-        hostname: hps
+        hostname: presto
         command: /usr/lib/presto/bin/launcher run
+        depends_on:
+          - metastore
