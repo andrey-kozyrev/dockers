@@ -33,6 +33,8 @@ services:
           - ./HADOOP/core-site.xml:/usr/lib/hadoop/etc/hadoop/core-site.xml:ro
           - ./HADOOP/yarn-site.xml:/usr/lib/hadoop/etc/hadoop/yarn-site.xml:ro
           - ./HIVE/hive-site.xml:/usr/lib/hive/conf/hive-site.xml:ro
+          - ./SPARK/spark-env.sh:/usr/lib/spark/conf/spark-env.sh:ro
+          - ./SPARK/log4j.properties:/usr/lib/spark/conf/log4j.properties:ro
     presto:
         ports:
           - "127.0.0.1:8080:8080"
