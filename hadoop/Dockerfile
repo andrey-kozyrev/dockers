@@ -73,4 +73,3 @@ RUN tar -xf spark*.tgz \
   && mkdir -p /var/dat/presto
 
 #RUN $HADOOP_HOME/bin/hadoop fs -mkdir /tmp /user/hive/warehouse
-#RUN $HADOOP_HOME/bin/hadoop fs -mkdir /user/hive/warehouse

@@ -38,7 +38,7 @@ hive:
 	docker run -ti --network=${NETWORK} -v ${DATA} -w ${WORKDIR} ${IMG} beeline -u jdbc:hive2://hive:10000 -n hive -p hive --outputformat=csv2 --color=true --showHeaders=true
 
 spark:
-	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${SPARK_ENV} -v ${DATA} -w ${WORKDIR} -p "127.0.0.1:4040:4040" ${IMG} spark-shell --master yarn --deploy-mode client
+	docker run -ti --network=${NETWORK} -v ${CORE_SITE} -v ${HDFS_SITE} -v ${YARN_SITE} -v ${SPARK_ENV} -v ${SPARK_LOG4J} -v ${DATA} -w ${WORKDIR} -p "127.0.0.1:4040:4040" ${IMG} spark-shell --master yarn --deploy-mode client
 
 presto:
-	docker run -ti --network=${NETWORK} -v ${DATA} -w ${WORKDIR} ${IMG} presto-cli.jar --server presto:8080 --catalog hive --schema default
+	docker run -ti --network=${NETWORK} -v ${DATA} -e PRESTO_PAGER:'' -w ${WORKDIR} ${IMG} presto-cli.jar --server presto:8080 --catalog hive --schema default

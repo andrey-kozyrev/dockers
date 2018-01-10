@@ -29,8 +29,22 @@
     <name>hive.security.authorization.enabled</name>
     <value>false</value>
   </property>
+  <!--
   <property>
     <name>hive.execution.engine</name>
     <value>spark</value>
   </property>
+  <property>
+    <name>spark.master</name>
+    <value>yarn</value>
+  </property>
+  <property>
+    <name>spark.submit.deployMode</name>
+    <value>client</value>
+  </property>
+  <property>
+    <name>spark.home</name>
+    <value>/usr/lib/spark</value>
+  </property>
+  -->
 </configuration>
