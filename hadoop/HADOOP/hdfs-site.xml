@@ -4,12 +4,12 @@
 
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>/var/dat/hadoop/namenode</value>
+    <value>file:///var/dat/hadoop/namenode</value>
   </property>
 
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/var/dat/hadoop/datanode</value>
+    <value>file:///var/dat/hadoop/datanode</value>
   </property>
 
   <property>
@@ -19,11 +19,11 @@
 
   <property>
     <name>dfs.replication</name>
-    <value>1</value>
+    <value>2</value>
   </property>
 
   <property>
-    <name>dfs.permissions</name>
+    <name>dfs.permissions.enabled</name>
     <value>false</value>
   </property>
 

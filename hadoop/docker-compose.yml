@@ -36,7 +36,6 @@ services:
         command: hive --service hiveserver2
         depends_on:
           - metastore
-          - yarn
     presto:
         image: ak/hadoop
         hostname: presto

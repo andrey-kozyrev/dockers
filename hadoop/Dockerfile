@@ -72,4 +72,5 @@ RUN tar -xf spark*.tgz \
   && chmod +x presto/bin/presto-cli.jar \
   && mkdir -p /var/dat/presto
 
-#RUN $HADOOP_HOME/bin/hadoop fs -mkdir /tmp /user/hive/warehouse
+#RUN group add hadoop \
+# && useradd -g hadoop hive

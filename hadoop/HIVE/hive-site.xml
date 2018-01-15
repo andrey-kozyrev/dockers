@@ -29,6 +29,28 @@
     <name>hive.security.authorization.enabled</name>
     <value>false</value>
   </property>
+  <property>
+      <name>hive.metastore.uris</name>
+      <value>thrift://metastore:9083</value>
+  </property>
+  <property>
+      <name>hive.metastore.local</name>
+      <value>false</value>
+  </property>
+  <property>
+      <name>hive.metastore.warehouse.dir</name>
+      <value>hdfs://namenode/dat</value>
+  </property>
+  <property>
+      <name>hive.exec.orc.default.block.size</name>
+      <value>33554432</value>
+  </property>
+
+
+
+
+
+
   <!--
   <property>
     <name>hive.execution.engine</name>
