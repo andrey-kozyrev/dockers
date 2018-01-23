@@ -45,28 +45,42 @@
       <name>hive.exec.orc.default.block.size</name>
       <value>33554432</value>
   </property>
-
-
-
-
-
-
-  <!--
   <property>
-    <name>hive.execution.engine</name>
-    <value>spark</value>
+      <name>hive.exec.dynamic.partition.mode</name>
+      <value>nonstrict</value>
   </property>
   <property>
-    <name>spark.master</name>
-    <value>yarn</value>
+      <name>hive.exec.reducers.max</name>
+      <value>4</value>
+  </property>
+  <property>
+      <name>mapreduce.job.reduces</name>
+      <value>4</value>
+  </property>
+  <!--
+  <property>
+    <name>spark.home</name>
+    <value>/usr/lib/spark</value>
   </property>
   <property>
     <name>spark.submit.deployMode</name>
     <value>client</value>
   </property>
   <property>
-    <name>spark.home</name>
-    <value>/usr/lib/spark</value>
+    <name>hive.execution.engine</name>
+    <value>spark</value>
+  </property>
+  <property>
+    <name>spark.eventLog.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hive.spark.job.monitor.timeout</name>
+    <value>180s</value>
+  </property>
+  <property>
+    <name>spark.master</name>
+    <value>yarn</value>
   </property>
   -->
 </configuration>
